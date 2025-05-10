@@ -8,6 +8,7 @@
 #define MW_BAND_TYPE  1
 #define SW_BAND_TYPE  2
 #define LW_BAND_TYPE  3
+#define AIR_BAND_TYPE 4 // Air Traffic Band
 
 // Commands
 #define CMD_NONE      0x0000

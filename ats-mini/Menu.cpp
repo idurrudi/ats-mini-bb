@@ -22,6 +22,7 @@ int bandIdx = 0;
 Band bands[] =
 {
   {"VHF",  FM_BAND_TYPE, FM,   6400, 10800, 10390, 2, 0, 0},
+  {"AIR",  AIR_BAND_TYPE, AM, 10800, 13700, 11800, 1, 6, 0}, // Air Traffic Band (108-137MHz AM, freq in 10kHz units)
   // All band. LW, MW and SW (from 150kHz to 30MHz)
   {"ALL",  SW_BAND_TYPE, AM,    150, 30000, 15000, 1, 4, 0},
   {"11M",  SW_BAND_TYPE, AM,  25600, 26100, 25850, 1, 4, 0},

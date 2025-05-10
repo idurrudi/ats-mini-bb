@@ -253,7 +253,21 @@ void useBand(const Band *band)
   currentMode = band->bandMode;
   currentBFO = 0;
 
-  if(band->bandMode==FM)
+  if(band->bandType == AIR_BAND_TYPE && band->bandMode == AM)
+  {
+    // AIR band uses 10kHz units for frequency storage, convert to kHz for the radio
+    uint16_t actualFreq = band->currentFreq * 10;
+    uint16_t actualMinFreq = band->minimumFreq * 10;
+    uint16_t actualMaxFreq = band->maximumFreq * 10;
+
+    // rx.setTuneFrequencyAntennaCapacitor(1); // Assuming similar to SW
+    rx.setAM(actualMinFreq, actualMaxFreq, actualFreq, getCurrentStep()->step);
+    rx.setSeekAmLimits(actualMinFreq, actualMaxFreq);
+    // Max 10kHz for spacing, but Airband often uses 25kHz or 8.33kHz.
+    // The current step system (5kHz for AM index 1) is a compromise.
+    rx.setSeekAmSpacing(5);
+  }
+  else if(band->bandMode==FM)
   {
     // rx.setTuneFrequencyAntennaCapacitor(0);
     rx.setFM(band->minimumFreq, band->maximumFreq, band->currentFreq, getCurrentStep()->step);

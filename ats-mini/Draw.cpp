@@ -186,15 +186,16 @@ static void drawFrequency(uint32_t freq, int x, int y, int ux, int uy, uint8_t h
   spr.setTextDatum(MR_DATUM);
   spr.setTextColor(TH.freq_text, TH.bg);
 
-  if(currentMode==FM)
+  if(currentMode==FM || getCurrentBand()->bandType == AIR_BAND_TYPE)
   {
-    // FM frequency
+    // FM and AIR band frequencies are stored in 10kHz units
+    // Display as MHz with 2 decimal places
     spr.drawFloat(freq/100.00, 2, x, y, 7);
     spr.setTextDatum(ML_DATUM);
     spr.setTextColor(TH.funit_text, TH.bg);
     spr.drawString("MHz", ux, uy);
 
-    if(hl<ITEM_COUNT(hlDigitsFM))
+    if(hl<ITEM_COUNT(hlDigitsFM)) // Use FM style digit highlighting
       li = &hlDigitsFM[hl];
   }
   else
